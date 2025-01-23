@@ -1,13 +1,5 @@
 # a1.py
 
-# Starter code for assignment 1 in ICS 32 Programming with Software Libraries in Python
-
-# Replace the following placeholders with your information.
-
-# PREMA SUTHAHARAN
-# PSUTHAHA@UCI.EDU
-# 68442150
-
 from pathlib import Path
 
 def create(path, name):
