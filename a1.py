@@ -4,13 +4,13 @@ from pathlib import Path
 
 def create(path, name):
     if not (path.exists() and path.is_dir()):
-        print('ERROR (directory dne)')
+        print('ERROR') # path does not exist and/or path does not point to a directory
         return True
     
     file = Path(str(path) + '/' + str(name) + '.dsu')
 
     if file.exists():
-        print('ERROR (file alr exists)')
+        print('ERROR') # file already exists
         return True
     
     with file.open('a+'):
@@ -18,14 +18,14 @@ def create(path, name):
         return False
 
 def delete(file):
-    sections = file.split('.')
+    sections = str(file).split('.')
 
     if sections[-1] != 'dsu':
-        print('ERROR (not dsu)')
+        print('ERROR') # file is not a .dsu
         return True
     
     if not file.exists():
-        print('ERROR (file dne)')
+        print('ERROR') # file does not exist
         return True
     
     file.unlink()
@@ -34,41 +34,42 @@ def delete(file):
 
 
 def read(file):
-    sections = file.split('.')
+    sections = str(file).split('.')
 
     if sections[-1] != 'dsu':
-        print('ERROR (not dsu)')
+        print('ERROR') # file is not a .dsu
         return True
 
     if not file.exists():
-        print('ERROR (file dne)')
+        print('ERROR') # file does not exist
         return True
 
     with file.open('r') as f:
-        content = file(read)
+        content = f.read()
         if len(content) == 0:
-            print('EMPTY')
+            print('EMPTY') # file is empty
         else:
-            for line in content:
-                print(line)
+            print(content)
 
     return False
 
 
 if __name__ == "__main__":
 
-    input = input().split()
+    user_input = input().split()
 
     repeat = True
 
     while repeat:
-        p = Path(input[1])
-        if input[0] == 'C':
-            repeat = create(p, input[3])
-        elif input[0] == 'D':
+        p = Path(user_input[1])
+        if user_input[0] == 'C':
+            repeat = create(p, user_input[3])
+        elif user_input[0] == 'D':
             repeat = delete(p)
-        elif input[0] == 'R':
+        elif user_input[0] == 'R':
             repeat = read(p)
         else:
-            print('ERROR')
+            print('ERROR') # invalid command entered
             repeat = True
+        if repeat == True:
+            user_input = input().split()
